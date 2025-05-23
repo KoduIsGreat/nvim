@@ -169,7 +169,8 @@ vim.o.confirm = true
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save file' })
-vim.keymap.set('n', '<leader>nt', ':NeoTree toggle<CR>', { desc = 'Toggle NeoTree' })
+vim.keymap.set('n', '<leader>xr', ':source %<CR>')
+vim.keymap.set('n', '<leader>n', ':set number! norelativenumber<cr>')
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -801,12 +802,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -966,7 +967,6 @@ require('lazy').setup({
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
   'nvim-treesitter/nvim-treesitter-context',
-
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.

@@ -169,8 +169,9 @@ vim.o.confirm = true
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save file' })
-vim.keymap.set('n', '<leader>xr', ':source %<CR>')
-vim.keymap.set('n', '<leader>n', ':set number! norelativenumber<cr>')
+vim.keymap.set('n', '<leader>xr', ':source %<CR>', { desc = 'source config' })
+vim.keymap.set('n', '<leader>n', ':set number <bar> setlocal relativenumber!<cr>', { desc = 'toggle relative numbers' })
+vim.keymap.set('n', '<leader>ws', ':set list!<CR>', { desc = 'toggle whitespace' })
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')

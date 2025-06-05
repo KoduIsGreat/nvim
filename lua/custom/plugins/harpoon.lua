@@ -50,6 +50,9 @@ local M = {
             local delete_multiple_buf = function()
               local picker = action_state.get_current_picker(prompt_bufnr)
               local selection = picker:get_multi_selection()
+              table.sort(selection, function(a, b)
+                return a.index > b.index
+              end)
               for _, entry in ipairs(selection) do
                 harpoon:list():remove_at(entry.index)
               end

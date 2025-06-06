@@ -48,6 +48,13 @@ return {
       desc = 'Debug: Step Over',
     },
     {
+      '<leader>gc',
+      function()
+        require('dap').run_to_cursor()
+      end,
+      desc = 'Debug: Run to Cursor',
+    },
+    {
       '<F1>',
       function()
         require('dap').step_out()
@@ -79,6 +86,9 @@ return {
   },
   config = function()
     local dap = require 'dap'
+    -- Enable DAP logging for troubleshooting
+    dap.set_log_level 'DEBUG'
+
     local dapui = require 'dapui'
 
     require('mason-nvim-dap').setup {
@@ -101,9 +111,6 @@ return {
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup {
-      -- Set icons to characters that are more likely to work in every terminal.
-      --    Feel free to remove or use ones that you like more! :)
-      --    Don't feel like these are good choices.
       icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
       controls = {
         icons = {
@@ -116,6 +123,26 @@ return {
           run_last = '▶▶',
           terminate = '⏹',
           disconnect = '⏏',
+        },
+      },
+      layouts = {
+        {
+          elements = {
+            { id = 'scopes', size = 0.25 },
+            { id = 'breakpoints', size = 0.25 },
+            { id = 'stacks', size = 0.25 },
+            { id = 'watches', size = 0.25 },
+          },
+          size = 40,
+          position = 'left',
+        },
+        {
+          elements = {
+            { id = 'repl', size = 0.5 },
+            { id = 'console', size = 0.5 },
+          },
+          size = 10,
+          position = 'bottom',
         },
       },
     }
@@ -133,8 +160,8 @@ return {
     end
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-    dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-    dap.listeners.before.event_exited['dapui_config'] = dapui.close
+    -- dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+    -- dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
     -- Install golang specific config
     require('dap-go').setup {
@@ -144,5 +171,13 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+    vim.keymap.set('n', '<leader>dc', function()
+      require('dapui').toggle { layout = 2 }
+    end, { desc = 'Debug: Toggle Console Panel' })
+
+    -- Print all current breakpoints to the message area
+    vim.keymap.set('n', '<leader>db', function()
+      print(vim.inspect(require('dap').list_breakpoints()))
+    end, { desc = 'Debug: List Breakpoints' })
   end,
 }

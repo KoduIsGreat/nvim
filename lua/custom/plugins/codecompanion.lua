@@ -3,7 +3,10 @@ return {
   opts = {
     strategies = {
       chat = {
-        adapter = 'anthropic',
+        adapter = {
+          name = 'anthropic',
+          model = 'claude-sonnet-4-20250514',
+        },
         slash_commands = {
           ['file'] = {
             callback = 'strategies.chat.slash_commands.file',

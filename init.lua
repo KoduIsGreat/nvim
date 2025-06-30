@@ -171,7 +171,7 @@ vim.o.confirm = true
 vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<C-q>', ':qa!<CR>', { desc = 'Quit Neovim' })
 vim.keymap.set('n', '<leader>c', ':bdelete<CR>', { desc = 'Close current buffer' })
-vim.keymap.set('n', '˜', ':bn<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', 'ø', ':bn<CR>', { desc = 'Next buffer' })
 vim.keymap.set('n', 'π', ':bp<CR>', { desc = 'Previous buffer' })
 
 vim.keymap.set('n', '<leader>xr', ':source %<CR>', { desc = 'source config' })
@@ -777,7 +777,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        go = { 'goimports', 'gofmt' },
+        go = { 'gofmt' },
         json = { 'jq' },
         javascript = { 'prettier' },
         javascriptreact = { 'prettier' },
@@ -938,21 +938,25 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
+      -- Add to mini.statusline
       local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
       statusline.setup { use_icons = vim.g.have_nerd_font }
 
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
         return '%2l:%-2v'
       end
-
+      -- statusline.section_fileinfo = function()
+      --   return '%t%=%{&filetype} %y'
+      -- end
+      -- statusline.section_git = function()
+      --   local git_branch = vim.b.gitsigns_head or ''
+      --   if git_branch ~= '' then
+      --     return ' 󰊢 ' .. git_branch
+      --   end
+      --   return ''
+      -- end
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,

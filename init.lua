@@ -679,7 +679,14 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        gopls = { filetypes = { 'go' } },
+        gopls = {
+          filetypes = { 'go' },
+          settings = {
+            gopls = {
+              buildFlags = { '-tags=duckdb_arrow' },
+            },
+          },
+        },
         jsonls = { filetypes = { 'json' } },
         ols = { filetypes = { 'odin' } },
         pyright = {

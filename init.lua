@@ -681,11 +681,7 @@ require('lazy').setup({
       local servers = {
         gopls = {
           filetypes = { 'go' },
-          settings = {
-            gopls = {
-              buildFlags = { '-tags=duckdb_arrow' },
-            },
-          },
+          buildFlags = { '-tags=duckdb_arrow' },
         },
         jsonls = { filetypes = { 'json' } },
         ols = { filetypes = { 'odin' } },
